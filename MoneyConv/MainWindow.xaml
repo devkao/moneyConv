@@ -1,0 +1,71 @@
+﻿<Window x:Class="MoneyConv.MainWindow"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:MoneyConv.ViewModels"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Title="MoneyConv - V0.1" Height="300" Width="596">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+
+        <materialDesign:ColorZone Grid.Column="0"
+                                  Grid.ColumnSpan="5"
+                                  Mode="PrimaryDark"
+                                  Padding="16"
+                                  CornerRadius="3"
+                                  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                  Margin="2">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 0">MoneyConv - Translate currency values to words</TextBlock>
+        </materialDesign:ColorZone>
+
+        <TextBox  Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"  Text="{Binding CurrencyInput,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="Please enter the the amount you want to have translated."
+                  Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" 
+                  Height="60"
+                  VerticalAlignment="Top" Margin="0,10,0,0"/>
+
+        <TextBox Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                 TextWrapping="Wrap"
+                 materialDesign:HintAssist.Hint="Conversion result is shown here."
+                 Grid.Row="2"
+                 Text="{Binding ServerResponse,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.ColumnSpan="3" 
+                 Grid.Column="1"
+                 IsReadOnly="True"
+                 MinHeight="25" Margin="0,10,0,14"/>
+
+        <Button Command="{Binding ConvertInput}" 
+                Margin="0" 
+                Grid.Row="3" 
+                Grid.Column="3" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right">Get Translation</Button>
+    </Grid>
+</Window>
