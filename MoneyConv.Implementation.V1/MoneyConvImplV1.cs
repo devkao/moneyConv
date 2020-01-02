@@ -186,7 +186,9 @@ namespace MoneyConv.Implementation.V1
                     var no1 = Convert.ToInt32(Char.GetNumericValue(numberAsCharArray[0]));
                     var no2 = Convert.ToInt32(Char.GetNumericValue(numberAsCharArray[1]));
 
-                    res += $"{_customWording[no1]}-{_customWording020[no2]}";
+                    res += $"{_customWording[no1]}";
+                    if (no2 != 0)
+                        res += $"-{_customWording020[no2]}";
                 }
             }
             else if (!noMoreWork)
