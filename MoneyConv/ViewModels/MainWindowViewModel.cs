@@ -39,11 +39,21 @@ namespace MoneyConv.ViewModels
 
         private void OnConvertInputExecute(object parameter)
         {
-            // get serviceclient and send input
-            using (var client = new MoneyConvSrv.MoneyConvV1Client())
+        //todo: backgroundworker/thread/async to prevent UI freezes
+            try
             {
-                var resp = client.ConvertNumberToWords(CurrencyInput);
-                ServerResponse = resp.Success ? resp.Value : resp.Message;
+                // get serviceclient and send input
+                using (var client = new MoneyConvSrv.MoneyConvV1Client())
+                {
+                    var resp = client.ConvertNumberToWords(CurrencyInput);
+                    ServerResponse = resp.Success ? resp.Value : resp.Message;
+
+                    OnPropertyChanged(nameof(ServerResponse));
+                }
+            }
+            catch (Exception e)
+            {
+                ServerResponse = e.Message;
 
                 OnPropertyChanged(nameof(ServerResponse));
             }
